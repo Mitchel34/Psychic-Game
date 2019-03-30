@@ -1,0 +1,81 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Psychic Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+    
+    <h1>Guess a letter!</h1>
+    <p id = computer-guess></p>
+    <h3>Wins: <p id = wins> </p> </h3>
+    <h3>Losses: <p id = losses></p> </h3>
+    <h3>Remaining Guesses: <p id = guesses-left></p> <h3>
+    <h3>Letters Guessed: <p id = guesses-so-far></p></h3>
+    
+<script>
+
+ var wins = 0;
+ var losses = 0;
+ var letterToGuess;
+ var guessLeft = 10;
+ var guessSoFar = [];
+ var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+ resetGame();
+ display();
+ 
+ 
+ //Function to get user input and hold in a variable
+document.onkeyup = function (event){
+  var userGuess = event.key;
+  if (userGuess === letterToGuess){
+      win();
+  } else if (guessLeft -1 === 0){
+      loss();
+  } else {
+      fail(userGuess);
+  }
+  display();
+}
+
+function display() {
+
+    var displayWin = document.getElementById("wins");
+    var displayLoss = document.getElementById("losses");
+    var displayGuessesLeft = document.getElementById("guesses-left");
+    var displayGuessSoFar = document.getElementById("guesses-so-far");
+    displayWin.innerHTML = wins;
+    displayLoss.innerHTML = losses;
+    displayGuessSoFar.innerHTML = guessSoFar;
+    displayGuessesLeft.innerHTML = guessLeft;
+
+}
+
+ function win(){
+     wins++;
+     resetGame();
+ }
+
+ function loss() {
+     losses++;
+     resetGame();
+ }
+
+ function fail(userGuess){
+     guessLeft--;
+     guessSoFar.push(userGuess);
+ }
+
+ function resetGame() {
+     guessLeft = 10;
+     guessSoFar = [];
+     letterToGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
+     console.log("Letter to guess: " + letterToGuess);
+ }
+
+</script>
+</body>
+</html>
